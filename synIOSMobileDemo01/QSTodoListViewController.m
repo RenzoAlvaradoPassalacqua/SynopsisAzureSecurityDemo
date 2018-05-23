@@ -19,7 +19,7 @@
 #import "QSTodoListViewController.h"
 #import "QSTodoService.h"
 #import "QSAppDelegate.h"
-
+ 
 
 #pragma mark * Private Interface
 
@@ -292,8 +292,16 @@
 {
     QSAppDelegate *appDelegate = (QSAppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.qsTodoService = self.todoService;
-    
-    [self.todoService.client loginWithProvider:@"windowsazureactivedirectory" urlScheme:@"syniosmobiledemo01.azurewebsites.net" controller:self animated:YES completion:^(MSUser * _Nullable user, NSError * _Nullable error) {
+   /*
+    [client loginWithProvider:@"microsoftaccount"
+                        token:@{@"authenticationToken" : self.liveClient.session.authenticationToken}
+                   completion:^(MSUser *user, NSError *error) {
+                       // Handle success and errors
+                   }];
+    */
+    /*
+    [self.todoService.client loginWithProvider:@"windowsazureactivedirectory"
+                                     urlScheme:@"syniosmobiledemo01.azurewebsites.net" controller:self animated:YES completion:^(MSUser * _Nullable user, NSError * _Nullable error) {
         if (error) {
             NSLog(@"Login failed with error: %@, %@", error, [error userInfo]);
         }
@@ -304,7 +312,36 @@
             [self refresh];
         }
     }];
+     */
+    if(!self.todoService.client.currentUser) {
+        
+        [self.todoService.client loginWithProvider:@"windowsazureactivedirectory"
+                       urlScheme:@"syniosmobilesecure.azurewebsites.net" controller:self animated:YES completion:^(MSUser * _Nullable user, NSError * _Nullable error) {
+                           
+                             NSLog(@"Login failed with error: %@, %@", error, [error userInfo]);
+                           NSLog(@"INITIAL TOKEN, userId: %@, token: %@", user.userId, user.mobileServiceAuthenticationToken);
+                           [self refresh];
+                           if(!error && user) {
+                               
+                               [self.todoService.client refreshUserWithCompletion:^(MSUser * _Nullable user, NSError * _Nullable error) {
+                                   // user object now has new token for us to use.
+                                   // I'm assuming this is the refresh token.
+                            
+                                   [self saveUserIntoKeyChain: user];
+                                   [self refresh];
+                                   // I can just load the userId and token from the keychain for future uses, and they all work.
+                                   // The only problem is that this token is only good for 1 hour.
+                                   
+                               }];
+                           }
+                       }];
+    }
 }
 
+
+-(void)saveUserIntoKeyChain:(MSUser *)user{
+ 
+    NSLog(@"User store token %@", user.mobileServiceAuthenticationToken);
+}
 
 @end

@@ -36,7 +36,7 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
     NSLog(@"url.scheme %@", url.scheme);
-    if ([[url.scheme lowercaseString] isEqualToString:@"syniosmobiledemo01.azurewebsites.net"]) {
+    if ([[url.scheme lowercaseString] isEqualToString:@"syniosmobilesecure.azurewebsites.net"]) {
         // Resume login flow
         return [self.qsTodoService.client resumeWithURL:url];
     }

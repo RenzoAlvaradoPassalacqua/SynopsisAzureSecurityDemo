@@ -53,7 +53,7 @@
     if (self)
     {
         // Initialize the Mobile Service client with your URL and key   
-        self.client = [MSClient clientWithApplicationURLString:@"https://syniosmobiledemo01.azurewebsites.net"];
+        self.client = [MSClient clientWithApplicationURLString:@"https://syniosmobilesecure.azurewebsites.net"];
     
         QSAppDelegate *delegate = (QSAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *context = delegate.managedObjectContext;

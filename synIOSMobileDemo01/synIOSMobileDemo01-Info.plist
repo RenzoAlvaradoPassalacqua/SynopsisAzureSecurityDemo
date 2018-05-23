@@ -6,13 +6,12 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.MobileServices.synIOSMobileDemo01</string>
+			<string>com.MobileServices.synIOSMobileSecure</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>https://syniosmobiledemo01.azurewebsites.net/.auth/login/microsoft</string>
-				<string>https://syniosmobiledemo01.azurewebsites.net/.auth/login/aad/callback</string>
-				<string>https://syniosmobiledemo01.azurewebsites.net://easyauth.callback</string>
-				<string>https://syniosmobiledemo01.azurewebsites.net/.auth/login/done</string>
+				<string>https://synIOSMobileSecure.azurewebsites.net/.auth/login/aad/callback</string>
+				<string>https://synIOSMobileSecure.azurewebsites.net://easyauth.callback</string>
+				<string>https://synIOSMobileSecure.azurewebsites.net/.auth/login/done</string>
 			</array>
 		</dict>
 	</array>
